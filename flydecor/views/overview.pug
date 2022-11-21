@@ -1,0 +1,65 @@
+extends base  
+block content  
+    section#home.home
+        .wow.animated.flipInY.event-plan-temp(data-wow-delay='0.2s')
+            img(src='img/eventPlanner.png' alt='')
+    section#about.about
+        .heading
+            h3 About Us
+        .about-contain
+            .about-text
+                p Fly decor, a one step ahead for creative planning and amazing ideas.We provide decoration services for birthday, baby shower, small events. Make every moment of your life special with us providing all types of arrangements at your door steps with amazing new ideas Your dream our commitment. Book your auspicious Day with us, let's together make it a memorable one.Let's make your birthday / baby shower / small parties in creative decoration with a simple planning and creative ideas. we hope that we will  meet your expectations!!
+            .about-img
+                img(src='img/logo.png' alt='flydecor-logo' width='200px' height='200px')
+    section#service.services
+        .heading
+            h3 Services
+        .card-container
+            .cards
+                div
+                    img(src='img/birthday.png' alt='birthday-icon' width='60' height='60')
+                h3 Birthday
+                p  We have the colorful balloon decoration,customized cake and superb decor theme to add some spunk and jazz to the birthday party of your loved ones.
+            .cards
+                div
+                    img(src='img/babyshower.png' alt='birthday-icon' width='60' height='60')
+                h3 Baby shower
+                p
+                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, odio nihil, unde aut maxime officia
+                       recusandae consectetur
+            .cards
+                div
+                    img(src='img/party.png' alt='birthday-icon' width='60' height='60')
+                h3 Small Party
+                p we decor for small parties like anniversary,small private party and surpise party. We choose best theme for small parties and make it more attractive decor
+    section#contact.contact
+        .heading
+            h3 Contact Us
+        .contact-container
+            .contact-details
+                .address-div
+                    i.ion-ios-location-outline
+                    h4 Address
+                    p
+                        a(href="https://goo.gl/maps/RH4ggVwogKA5rCnB7" target="_blank")Moodbidri Karnataka
+                .phone-div
+                    i.ion-ios-telephone-outline
+                    h4 Phone number
+                    p
+                        a(href="tel:+919663179875") +919663179875
+                .email-div
+                    i.ion-ios-email-outline
+                    h4 gmail
+                    p
+                        a(href="mailto:flydecor65@gmail.com") flydecor65@gmail.com
+            form.contact-form
+                input#name(type='text' name='name' placeholder='Enter your name' required=''  autocomplete="off")
+                span#errorName.error1.hide-error
+                input#email(type='email' name='email' placeholder='Enter your email' required='' autocomplete="off")
+                span#errorName.error2.hide-error
+                input#subject(type='text' name='subject' placeholder='Subject' required='' autocomplete="off" )
+                span#errorName.error3.hide-error
+                textarea#message(name='message' cols='30' rows='6' placeholder='message' required='' autocomplete="off")
+                span#errorName.error4.hide-error
+                button.btn.btn-primary.sendMessage Send Message
+
