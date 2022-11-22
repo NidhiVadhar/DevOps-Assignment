@@ -11,7 +11,7 @@ pipeline {
             steps {
                 nodejs(nodeJSInstallationName: 'Node') {
                     sh 'npm install -g node-gyp --save-dev'
-                    sh 'npm ci'
+                    sh 'npm i'
                     sh 'npm run start'
                 }
             }
