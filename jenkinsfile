@@ -5,9 +5,8 @@ pipeline {
         stage('Checkout source code') {
             steps{
                 sh "echo running "
-                sh "sudo apt-get install python3.9 -y"
-            }
         }
+   }
         stage('Build') {
             steps {
                 nodejs(nodeJSInstallationName: 'Node') {
