@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout source code') {
+            steps{
+                sh "echo running "
+            }
+        }
+        stage('clone repo') {
+          steps {
+              sh("""
+              git -v
+              git config --global user.email 'NidhiVadhar' 
+              git config --global user.password 'Nidhi@0914'
+              git clone https://github.com/NidhiVadhar/DevOps-Assignment.git
+
+              echo "pulled the code"
+              """)
+          }
+        }
+        stage('Build') {
+            steps {
+                nodejs(nodeJSInstallationName: 'Node') {
+                    sh 'npm config ls'
+                    sh 'npm install'
+                    sh 'npm run start'
+                }
+            }
+        }
+    }
+}
