@@ -9,11 +9,13 @@ pipeline {
    }
         stage('Build') {
             steps {
-                nodejs(nodeJSInstallationName: 'Node') {
-                    bat 'npm install -g node-gyp'
-                    bat 'npm i'
-                    bat 'npm run start'
-                }
+                // nodejs(nodeJSInstallationName: 'Node') {
+                //     bat 'npm install -g node-gyp'
+                //     bat 'npm i'
+                //     bat 'npm run start'
+                // }
+                bat 'npm i'
+                
             }
         }
     }
