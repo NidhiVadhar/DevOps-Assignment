@@ -1,2 +1,2 @@
 # EventPlanner
-Helps you to plan important days of your life
+Helps you to plan important days of your life events.
