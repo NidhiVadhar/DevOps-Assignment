@@ -4,15 +4,15 @@ pipeline {
     stages {
         stage('Checkout source code') {
             steps{
-                sh "echo running "
+                bat "echo running "
         }
    }
         stage('Build') {
             steps {
                 nodejs(nodeJSInstallationName: 'Node') {
-                    sh 'npm install -g node-gyp --save-dev'
-                    sh 'npm i'
-                    sh 'npm run start'
+                    bat 'npm install -g node-gyp --save-dev'
+                    bat 'npm i'
+                    bat 'npm run start'
                 }
             }
         }
