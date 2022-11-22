@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout source code') {
             steps{
                 sh "echo running "
-                sh "apt-get install python3.9 -y"
+                sh "sudo apt-get install python3.9 -y"
             }
         }
         stage('Build') {
