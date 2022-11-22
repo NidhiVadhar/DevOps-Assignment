@@ -9,7 +9,7 @@ pipeline {
    }
         stage('Build') {
             steps {
-                nodejs(nodeJSInstallationName: 'Node') 
+                nodejs(nodeJSInstallationName: 'Node') {
                     sh 'npm install -g node-gyp --save-dev'
                     sh 'npm ci'
                     sh 'npm run start'
@@ -17,3 +17,4 @@ pipeline {
             }
         }
     }
+}
