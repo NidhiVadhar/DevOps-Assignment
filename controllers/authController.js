@@ -39,13 +39,13 @@ exports.login = CatchAsync(async (req, res, next) => {
   createSendToken(user, 201, req, res);
 });
 
-// exports.signup = CatchAsync(async (req, res, next) => {
-//   console.log(req.body);
-//   await User.create(req.body);
-//   res.status(200).json({
-//     status: 'Sucess',
-//   });
-// });
+exports.signup = CatchAsync(async (req, res, next) => {
+  console.log(req.body);
+  await User.create(req.body);
+  res.status(200).json({
+    status: 'Sucess',
+  });
+});
 
 exports.protect = CatchAsync(async (req, res, next) => {
   let token;
