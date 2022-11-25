@@ -29,19 +29,25 @@ pipeline {
         // }        
 
         
-            stage ("SonarQube Scan") {
-                steps {
-                    withEnv(["PATH=C:/Users/I526042/Downloads/sonarqube-developer-9.7.1.62043/sonarqube-9.7.1.62043/bin"]) {
-                        withSonarQubeEnv('sonar-assignement') { 
-                        bat "sonar-scanner \
-                            -Dsonar.projectKey=${projectName} \
-                            -Dsonar.sources=. \
-                            -Dsonar.host.url=${env.SONAR_HOST_URL} \
-                            -Dsonar.login=${env.SONAR_AUTH_TOKEN} \
-                            -Dsonar.projectName=${projectName} \
-                            -Dsonar.projectVersion=${env.BUILD_ID}"
-                    }
-                 }
+        //     stage ("SonarQube Scan") {
+        //         steps {
+        //             withEnv(["PATH=C:/Users/I526042/Downloads/sonarqube-developer-9.7.1.62043/sonarqube-9.7.1.62043/bin"]) {
+        //                 withSonarQubeEnv('sonar-assignement') { 
+        //                 bat "sonar-scanner \
+        //                     -Dsonar.projectKey=${projectName} \
+        //                     -Dsonar.sources=. \
+        //                     -Dsonar.host.url=${env.SONAR_HOST_URL} \
+        //                     -Dsonar.login=${env.SONAR_AUTH_TOKEN} \
+        //                     -Dsonar.projectName=${projectName} \
+        //                     -Dsonar.projectVersion=${env.BUILD_ID}"
+        //             }
+        //          }
+        //     }
+        // }
+
+        stage('Build & Package') {
+             withSonarQubeEnv('sonar-assignement') {
+             bat 'mvn clean package sonar:sonar'
             }
         }
     }
