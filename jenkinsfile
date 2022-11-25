@@ -7,9 +7,13 @@ pipeline {
     stages {
         stage('Checkout source code') {
             steps{
-                
+                script {
+
+                withCredentials([string(credentialsId: 'cf_password', variable: 'cf_password')]) {
                 sh "cf login -a https://api.cf.ap21.hana.ondemand.com -u preeti.m.baddi@sap.com -p ${cf_password}"
                 sh "echo running "
+            }
+            }
         }
      }
         // stage('Build') {
