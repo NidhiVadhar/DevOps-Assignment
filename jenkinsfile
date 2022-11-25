@@ -10,8 +10,8 @@ pipeline {
                 script {
 
                 withCredentials([string(credentialsId: 'cf_password', variable: 'cf_password')]) {
-                bat "cf login -a https://api.cf.ap21.hana.ondemand.com -u preeti.m.baddi@sap.com -p ${cf_password}"
-                bat "echo running "
+                sh "cf login -a https://api.cf.us10-001.hana.ondemand.com -u nidhi.vadhar@sap.com -p ${cf_password}"
+                sh "echo running "
             }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
                 //     bat 'npm i'
                 //     bat 'npm run start'
                 // }
-                bat 'npm i'
+                sh 'npm i'
 
             }
             
@@ -54,18 +54,18 @@ pipeline {
             stage('Build & Package') {
                 steps{
                      withSonarQubeEnv('DevOps-assignment') {
-                    bat "npm install sonar-scanner"
-                     bat 'node_modules/sonar-scanner/bin/sonar-scanner'
+                    sh "npm install sonar-scanner"
+                     sh 'node_modules/sonar-scanner/bin/sonar-scanner'
                     }
                     
                 }
             }
 
             stage("Deploy") {
-                steps{
-                    bat "mbt build -s ."
-                    bat "cf install-plugin multiapps -f"
-                    bat "cf deploy mta_archives/devOps_1.0.0.mtar"
+                steps{ 
+                    sh "mbt build -s ."
+                    sh  "cf install-plugin multiapps -f"
+                    sh "cf deploy mta_archives/devOps_1.0.0.mtar"
             }
         }
     }
