@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout source code') {
             steps{
-                sh "echo running "
+                bat "echo running "
         }
    }
         stage('Build') {
@@ -14,7 +14,7 @@ pipeline {
                 //     bat 'npm i'
                 //     bat 'npm run start'
                 // }
-                sh 'npm i'
+                bat 'npm i'
 
             }
             
