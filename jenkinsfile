@@ -45,10 +45,12 @@ pipeline {
         //     }
         // }
 
-        stage('Build & Package') {
-             withSonarQubeEnv('sonar-assignement') {
-             bat 'mvn clean package sonar:sonar'
+            stage('Build & Package') {
+                steps{
+                     withSonarQubeEnv('sonar-assignement') {
+                     bat 'mvn clean package sonar:sonar'
+                    }
+                }
             }
         }
-    }
 }
