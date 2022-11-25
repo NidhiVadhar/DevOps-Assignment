@@ -10,18 +10,18 @@ pipeline {
                 bat "echo running "
         }
      }
-        stage('Build') {
-            steps {
-                // nodejs(nodeJSInstallationName: 'Node') {
-                //     bat 'npm install -g node-gyp'
-                //     bat 'npm i'
-                //     bat 'npm run start'
-                // }
-                bat 'npm i'
+        // stage('Build') {
+        //     steps {
+        //         // nodejs(nodeJSInstallationName: 'Node') {
+        //         //     bat 'npm install -g node-gyp'
+        //         //     bat 'npm i'
+        //         //     bat 'npm run start'
+        //         // }
+        //         bat 'npm i'
 
-            }
+        //     }
             
-        }
+        // }
         // stage('Test') {
         //     steps {
         //         bat 'npm run start'
@@ -58,7 +58,6 @@ pipeline {
             stage("Deploy") {
                 steps{
                     bat "mbt build -s ."
-                    bat "cf help -a"
                     bat "cf install-plugin multiapps"
                     bat "cf deploy mta_archives/devOps_1.0.0.mtar"
                 // }
