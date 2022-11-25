@@ -57,17 +57,9 @@ pipeline {
 
             stage("Deploy") {
                 steps{
-                //     bat 'mbt build -s .'
-                    bat 'make --version'
-                //     bat 'cf deploy mta_archives/devOps_1.0.0.mtar'
+                    bat 'mbt build -s .'
+                    bat 'cf deploy mta_archives/devOps_1.0.0.mtar'
                 // }
-                //  pushToCloudFoundry(
-                //     target: 'https://api.cf.ap21.hana.ondemand.com',
-                //     organization: 'bc7dc041trial',
-                //     cloudSpace: 'dev',
-                //     credentialsId: 'pcfdev_user',
-                //     manifestChoice: [manifestFile: 'mta.yaml']
-                // )
             }
         }
     }
