@@ -2,6 +2,7 @@ pipeline {
     agent any
      environment {
         projectName = "test-project"
+        env.PATH = env.PATH + ";c:\\Windows\\System32"
     }
 
     stages {
