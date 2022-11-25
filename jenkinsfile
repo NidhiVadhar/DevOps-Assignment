@@ -16,23 +16,23 @@ pipeline {
             }
         }
      }
-        // stage('Build') {
-        //     steps {
-        //         // nodejs(nodeJSInstallationName: 'Node') {
-        //         //     bat 'npm install -g node-gyp'
-        //         //     bat 'npm i'
-        //         //     bat 'npm run start'
-        //         // }
-        //         bat 'npm i'
+        stage('Build') {
+            steps {
+                // nodejs(nodeJSInstallationName: 'Node') {
+                //     bat 'npm install -g node-gyp'
+                //     bat 'npm i'
+                //     bat 'npm run start'
+                // }
+                bat 'npm i'
 
-        //     }
+            }
             
-        // }
-        // stage('Test') {
-        //     steps {
-        //         bat 'npm run start'
-        //     } 
-        // }        
+        }
+        stage('Test') {
+            steps {
+                bat 'npm run start'
+            } 
+        }        
 
         
         //     stage ("SonarQube Scan") {
@@ -51,23 +51,22 @@ pipeline {
         //     }
         // }
 
-            // stage('Build & Package') {
-            //     steps{
-            //         //  withSonarQubeEnv('DevOps-assignment') {
-            //         // bat "npm install sonar-scanner"
-            //         //  bat 'node_modules/sonar-scanner/bin/sonar-scanner'
-            //         // }
+            stage('Build & Package') {
+                steps{
+                     withSonarQubeEnv('DevOps-assignment') {
+                    bat "npm install sonar-scanner"
+                     bat 'node_modules/sonar-scanner/bin/sonar-scanner'
+                    }
                     
-            //     }
-            // }
+                }
+            }
 
-        //     stage("Deploy") {
-        //         steps{
-        //             bat "mbt build -s ."
-        //             bat "cf install-plugin multiapps -f"
-        //             bat "cf deploy mta_archives/devOps_1.0.0.mtar"
-        //         // }
-        //     }
-        // }
+            stage("Deploy") {
+                steps{
+                    bat "mbt build -s ."
+                    bat "cf install-plugin multiapps -f"
+                    bat "cf deploy mta_archives/devOps_1.0.0.mtar"
+            }
+        }
     }
 }
