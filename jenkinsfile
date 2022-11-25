@@ -8,7 +8,7 @@ pipeline {
         stage('Checkout source code') {
             steps{
                 
-                bat "cf login -a https://api.cf.ap21.hana.ondemand.com -u preeti.m.baddi@sap.com -p ${cf_password}"
+                bat "cf login -a https://api.cf.ap21.hana.ondemand.com -u preeti.m.baddi@sap.com -p "%cf_password%""
                 bat "echo running "
         }
      }
