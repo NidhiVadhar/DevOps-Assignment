@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout source code') {
+            steps{
+                bat "echo running "
+        }
+   }
+        stage('Build') {
+            steps {
+                // nodejs(nodeJSInstallationName: 'Node') {
+                //     bat 'npm install -g node-gyp'
+                //     bat 'npm i'
+                //     bat 'npm run start'
+                // }
+                bat 'npm i'
+
+            }
+            
+        }
+        // stage('Test') {
+        //     steps {
+        //         bat 'npm run start'
+        //     } 
+        // }        
+
+    }
+}

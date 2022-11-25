@@ -78,6 +78,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/', viewRouter);
+
 app.use('/api/client', clientRoute);
 app.use('/api/admin', adminRoute);
 
