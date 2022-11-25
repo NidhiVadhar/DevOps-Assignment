@@ -7,6 +7,8 @@ pipeline {
     stages {
         stage('Checkout source code') {
             steps{
+                
+                bat "cf login -a https://api.cf.ap21.hana.ondemand.com -u preeti.m.baddi@sap.com -p ${cf_password}"
                 bat "echo running "
         }
      }
@@ -59,7 +61,6 @@ pipeline {
                 steps{
                     bat "mbt build -s ."
                     bat "cf install-plugin multiapps -f"
-                    bat "cf login -a https://api.cf.ap21.hana.ondemand.com -u ${cf_emailId} -p ${cf_password}"
                     bat "cf deploy mta_archives/devOps_1.0.0.mtar"
                 // }
             }
