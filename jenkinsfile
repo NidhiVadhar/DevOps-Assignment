@@ -8,8 +8,8 @@ pipeline {
         stage('Checkout source code') {
             steps{
                 
-                bat "cf login -a https://api.cf.ap21.hana.ondemand.com -u preeti.m.baddi@sap.com -p "%cf_password%""
-                bat "echo running "
+                sh "cf login -a https://api.cf.ap21.hana.ondemand.com -u preeti.m.baddi@sap.com -p ${cf_password}"
+                sh "echo running "
         }
      }
         // stage('Build') {
@@ -57,13 +57,13 @@ pipeline {
             //     }
             // }
 
-            stage("Deploy") {
-                steps{
-                    bat "mbt build -s ."
-                    bat "cf install-plugin multiapps -f"
-                    bat "cf deploy mta_archives/devOps_1.0.0.mtar"
-                // }
-            }
-        }
+        //     stage("Deploy") {
+        //         steps{
+        //             bat "mbt build -s ."
+        //             bat "cf install-plugin multiapps -f"
+        //             bat "cf deploy mta_archives/devOps_1.0.0.mtar"
+        //         // }
+        //     }
+        // }
     }
 }
