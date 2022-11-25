@@ -47,8 +47,9 @@ pipeline {
 
             stage('Build & Package') {
                 steps{
-                     withSonarQubeEnv('sonar-assignement') {
-                     bat 'mvn clean package sonar:sonar'
+                     withSonarQubeEnv('DevOps-assignment') {
+                    bat "npm install sonar-scanner"
+                     bat 'npm run nodemodules/sonar-scanner/bin/sonar-scanner'
                     }
                 }
             }
