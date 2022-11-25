@@ -59,6 +59,7 @@ pipeline {
                 steps{
                     bat "mbt build -s ."
                     bat "cf help -a"
+                    bat "cf install-plugin multiapps"
                     bat "cf deploy mta_archives/devOps_1.0.0.mtar"
                 // }
             }
