@@ -10,7 +10,7 @@ pipeline {
                 script {
 
                 withCredentials([string(credentialsId: 'cf_password', variable: 'cf_password')]) {
-                sh "cf login -a https://api.cf.ap21.hana.ondemand.com -u preeti.baddi@sap.com -p ${cf_password}"
+                sh "cf login -a https://api.cf.ap21.hana.ondemand.com -u nidhi.vadhar@sap.com -p ${cf_password}"
                 sh "echo running "
             }
             }
