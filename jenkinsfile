@@ -49,7 +49,7 @@ pipeline {
                 steps{
                      withSonarQubeEnv('DevOps-assignment') {
                     bat "npm install sonar-scanner"
-                     bat 'npm run nodemodules/sonar-scanner/bin/sonar-scanner'
+                     bat 'nodemodules/sonar-scanner/bin/sonar-scanner'
                     }
                 }
             }
