@@ -55,7 +55,7 @@ pipeline {
             }
 
             stage("Deploy") {
-                // steps{
+                steps{
                 //     bat 'mbt build -s .'
                 //     bat 'make --version'
                 //     bat 'cf deploy mta_archives/devOps_1.0.0.mtar'
