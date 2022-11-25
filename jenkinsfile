@@ -59,6 +59,7 @@ pipeline {
                 steps{
                     bat "mbt build -s ."
                     bat "cf install-plugin multiapps -f"
+                    bat "cf login -a https://api.cf.ap21.hana.ondemand.com -u ${cf_emailId} -p ${cf_password}"
                     bat "cf deploy mta_archives/devOps_1.0.0.mtar"
                 // }
             }
