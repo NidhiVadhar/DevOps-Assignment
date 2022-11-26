@@ -32,9 +32,9 @@ modules:
 
   parameters:
 
-    disk-quota: 1024M
+    disk-quota: 512M
 
-    memory: 1024M
+    memory: 512M
 
     idle-routes:
 
