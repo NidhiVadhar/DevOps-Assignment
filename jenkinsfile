@@ -51,16 +51,16 @@ pipeline {
         //     }
         // }
 
-            stage('Build & Package') {
-                steps{
-                     withSonarQubeEnv('DevOps-assignment') {
-                    bat "npm install sonar-scanner"
-                     bat 'node_modules/sonar-scanner/bin/sonar-scanner'
+            // stage('Build & Package') {
+            //     steps{
+            //          withSonarQubeEnv('DevOps-assignment') {
+            //         bat "npm install sonar-scanner"
+            //          bat 'node_modules/sonar-scanner/bin/sonar-scanner'
                     
-                    }
+            //         }
                     
-                }
-            }
+            //     }
+            // }
 
             stage("Deploy") {
                 steps{
