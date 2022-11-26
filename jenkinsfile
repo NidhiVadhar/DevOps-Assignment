@@ -58,7 +58,6 @@ pipeline {
             //          bat 'node_modules/sonar-scanner/bin/sonar-scanner'
                     
             //         }
-                    
             //     }
             // }
 
