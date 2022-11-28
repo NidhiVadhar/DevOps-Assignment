@@ -1,73 +1,88 @@
 pipeline {
     agent any
-     environment {
-        projectName = "test-project"
-        PATH="/usr/local/bin:$PATH"
-    }
-
-    stages {
-        stage('Checkout source code') {
+    stages{
+        stage('Checkout'){
             steps{
-                script {
-
-                withCredentials([string(credentialsId: 'cf_password', variable: 'cf_password')]) {
-                sh "cf login -a https://api.cf.ap21.hana.ondemand.com -u preeti.m.baddi@sap.com -p ${cf_password}"
-                sh "echo running "
-            }
+                checkout([$class: 'GitSCM', branches: [[name: '*/mybranch']], userRemoteConfigs: [[url: 'https://github.com/NidhiVadhar/DevOps-Assignment.git']]])
             }
         }
-     }
-        // stage('Build') {
-        //     steps {
-        //         // nodejs(nodeJSInstallationName: 'Node') {
-        //         //     bat 'npm install -g node-gyp'
-        //         //     bat 'npm i'
-        //         //     bat 'npm run start'
-        //         // }
-        //         bat 'npm i'
-
+        stage("Build") {
+            steps{
+                sh "echo '--- Installing node modules ----'"
+                sh "npm install"
+                withCredentials([string(credentialsId: 'cf_password', variable: 'cf_password')]) {
+                sh "cf login -a https://api.cf.ap21.hana.ondemand.com -u preeti.m.baddi@sap.com -p \"${cf_password}\" -o bc7dc041trial -s dev"
+                }
+            }
+        }
+//                 stage('SonarQube analysis') {
+//                     steps{
+//                         sh "sonar-scanner \
+//                         -Dsonar.sources=. \
+//                         -Dsonar.host.url='https://localhost:9000'\
+//                         -Dsonar.login='sqp_d05c195958791d1e3bf97ea583aa718738fa942'\
+//     }
+//   }
+        // stage('Build docker image'){
+        //     steps{
+        //             sh 'docker build -t sushanthsk/datsec-app:v1 .'
         //     }
-            
-        // }
-        // stage('Test') {
-        //     steps {
-        //         bat 'npm run start'
-        //     } 
-        // }        
-
-        
-        //     stage ("SonarQube Scan") {
-        //         steps {
-        //             withEnv(["PATH=C:/Users/I526042/Downloads/sonarqube-developer-9.7.1.62043/sonarqube-9.7.1.62043/bin"]) {
-        //                 withSonarQubeEnv('sonar-assignement') { 
-        //                 bat "sonar-scanner \
-        //                     -Dsonar.projectKey=${projectName} \
-        //                     -Dsonar.sources=. \
-        //                     -Dsonar.host.url=${env.SONAR_HOST_URL} \
-        //                     -Dsonar.login=${env.SONAR_AUTH_TOKEN} \
-        //                     -Dsonar.projectName=${projectName} \
-        //                     -Dsonar.projectVersion=${env.BUILD_ID}"
+        //     post{
+        //         success{
+        //             script{
+        //                 env.build = "success"
         //             }
-        //          }
+        //         }
         //     }
         // }
-
-            // stage('Build & Package') {
-            //     steps{
-            //          withSonarQubeEnv('DevOps-assignment') {
-            //         bat "npm install sonar-scanner"
-            //          bat 'node_modules/sonar-scanner/bin/sonar-scanner'
-                    
-            //         }
-            //     }
-            // }
-
-        //     stage("Deploy") {
-        //         steps{
-        //             bat "mbt build -s ."
-        //             bat "cf install-plugin multiapps -f"
-        //             bat "cf deploy mta_archives/devOps_1.0.0.mtar"
+        // stage('Push image to docker Hub'){
+        //     when{
+        //         expression{
+        //             env.build == "success"
+        //         }
+        //     }
+        //     steps{
+        //         script {
+        //           withCredentials([string(credentialsId: 'dockerpwd', variable: 'docker_pwd')]) {
+        //           sh 'docker login -u sushanthsk -p ${docker_pwd}'
+        //             }
+        //           sh 'docker push sushanthsk/datsec-app:v1'
+        //         }
         //     }
         // }
-    }
+        // stage('Deploy to K8') {
+        //     when{
+        //         expression{
+        //             env.build == "success"
+        //         }
+        //     }
+        //     input{
+        //         message "Do you want to proceed for production deployment?"
+        //     }
+        //     steps{
+        //         script {
+        //             kubernetesDeploy (configs: 'deployment.yaml', kubeconfigId: 'k8configpwd')
+        //             sh 'kubectl rollout restart deployment datsec-app'
+        //         }
+    //         }
+    //     }
+    // }
+    //     post {
+    //     // Clean after build
+    //     always {
+    //         cleanWs(cleanWhenNotBuilt: false,
+    //                 deleteDirs: true,
+    //                 disableDeferredWipeout: true,
+    //                 notFailBuild: true,
+    //                 patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
+    //                            [pattern: '.propsfile', type: 'EXCLUDE']])
+    //         }
+    stage("Deploy") {
+                steps{
+                    sh "mbt build -s ."
+                    sh "cf install-plugin multiapps -f"
+                    sh "cf deploy mta_archives/devOps_1.0.0.mtar -f"
+            }
+        }
+}
 }
