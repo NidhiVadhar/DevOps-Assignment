@@ -3,7 +3,7 @@ pipeline {
     stages{
         stage('Checkout'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/mybranch']], userRemoteConfigs: [[url: 'https://github.com/NidhiVadhar/DevOps-Assignment.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/NidhiVadhar/DevOps-Assignment.git']]])
             }
         }
         stage("Build") {
@@ -15,14 +15,21 @@ pipeline {
                 }
             }
         }
-//                 stage('SonarQube analysis') {
-//                     steps{
-//                         sh "sonar-scanner \
-//                         -Dsonar.sources=. \
-//                         -Dsonar.host.url='https://localhost:9000'\
-//                         -Dsonar.login='sqp_d05c195958791d1e3bf97ea583aa718738fa942'\
-//     }
-//   }
+        stage('SonarQube') {
+            steps {
+                script {
+                def scannerHome = tool 'qube';
+                 withSonarQubeEnv("DevDemo") {
+                 sh "${tool("qube")}/bin/sonar-scanner \
+                 -Dsonar.sources=. \
+                 -Dsonar.css.node=. \
+                 -Dsonar.host.url=http://localhost:9000 \
+                 -Dsonar.login=sqp_d05c195958791d1e3bf97ea583aa718738fa942b"
+               }
+           }
+       }
+    }
+ 
         // stage('Build docker image'){
         //     steps{
         //             sh 'docker build -t sushanthsk/datsec-app:v1 .'
