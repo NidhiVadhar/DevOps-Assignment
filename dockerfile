@@ -1,7 +1,7 @@
 FROM node:lts-alpine
 
 # install simple http server for serving static content
-RUN npm install -g http-server
+RUN npm install -g https-server
 
 # make the 'app' folder the current working directory
 WORKDIR /app
@@ -15,8 +15,8 @@ RUN npm install
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 
-# build app for production with minification
-RUN npm run build
+# # build app for production with minification
+# RUN npm run build
 
 EXPOSE 8000
 CMD [ "https-server", "dist" ]
