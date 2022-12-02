@@ -15,75 +15,31 @@ pipeline {
                 }
             }
         }
-        stage('SonarQube') {
-            steps {
-                script {
-                def scannerHome = tool 'qube';
-                 withSonarQubeEnv("DevDemo") {
-                 sh "${tool("qube")}/bin/sonar-scanner \
-                 -Dsonar.sources=. \
-                 -Dsonar.css.node=. \
-                 -Dsonar.host.url=http://localhost:9000 \
-                 -Dsonar.login=sqp_d05c195958791d1e3bf97ea583aa718738fa942b"
-               }
-           }
-       }
-    }
  
-        // stage('Build docker image'){
-        //     steps{
-        //             sh 'docker build -t sushanthsk/datsec-app:v1 .'
-        //     }
-        //     post{
-        //         success{
-        //             script{
-        //                 env.build = "success"
-        //             }
-        //         }
-        //     }
-        // }
-        // stage('Push image to docker Hub'){
-        //     when{
-        //         expression{
-        //             env.build == "success"
-        //         }
-        //     }
-        //     steps{
-        //         script {
-        //           withCredentials([string(credentialsId: 'dockerpwd', variable: 'docker_pwd')]) {
-        //           sh 'docker login -u sushanthsk -p ${docker_pwd}'
-        //             }
-        //           sh 'docker push sushanthsk/datsec-app:v1'
-        //         }
-        //     }
-        // }
-        // stage('Deploy to K8') {
-        //     when{
-        //         expression{
-        //             env.build == "success"
-        //         }
-        //     }
-        //     input{
-        //         message "Do you want to proceed for production deployment?"
-        //     }
-        //     steps{
-        //         script {
-        //             kubernetesDeploy (configs: 'deployment.yaml', kubeconfigId: 'k8configpwd')
-        //             sh 'kubectl rollout restart deployment datsec-app'
-        //         }
-    //         }
-    //     }
-    // }
-    //     post {
-    //     // Clean after build
-    //     always {
-    //         cleanWs(cleanWhenNotBuilt: false,
-    //                 deleteDirs: true,
-    //                 disableDeferredWipeout: true,
-    //                 notFailBuild: true,
-    //                 patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
-    //                            [pattern: '.propsfile', type: 'EXCLUDE']])
-    //         }
+        stage('Build docker image'){
+            steps{
+                    sh 'docker build -t nidhivadhar/flydecor .'
+            }
+        }
+        stage('Push image to docker Hub'){
+            steps{
+                script {
+                  withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+                  sh 'docker login -u nidhivadhar -p ${dockerhub}'
+                    }
+                  sh 'docker push nidhivadhar/flydecor'
+                }
+            }
+        }
+        stage('Deploy to K8') {
+            steps{
+                script {
+                    sh 'kubectl delete deployments flydecor-pod'
+                    sh 'kubectl create deployment flydecor-pod --image=nidhivadhar/flydecor'
+                }
+            }
+        }
+    
     stage("Deploy") {
                 steps{
                     sh "mbt build -s ."
